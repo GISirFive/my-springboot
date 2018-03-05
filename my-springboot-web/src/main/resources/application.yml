@@ -1,0 +1,48 @@
+mybatis:
+  config-location: classpath:mybatis/mybatis.cfg.xml
+  type-aliases-package: com.qianxin.web.entity.po
+  mapper-locations: classpath:mybatis/mapper/**/*.xml
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://39.106.36.243:3306/test?useUnicode=true&charaterEncoding=utf-8
+    username: root
+    password: 123456
+    validation-query: SELECT 1 FROM DUAL;
+    dbcp2:
+      max-idle: 5
+      min-idle: 5
+      max-wait-millis: 1000
+      max-total: 10
+  redis:
+    database: 0
+    host: 39.106.36.243
+    port: 6379
+    #password:
+    timeout: 86400000
+    pool:
+      max-idle: 300
+      min-idle: 100
+      max-wait: 1000
+      max-active: 1024
+    #sentinel:
+      #master: mymaster
+      #nodes: 115.28.57.190:26379, 115.28.57.190:26381
+  dubbo:
+    application:
+      name:
+    registry:
+      address: 39.106.36.243
+      port: 2181
+      check: false
+      timeout: 6000
+    protocol:
+      name: dubbo
+    provider:
+      retries: 0
+    consumer:
+      check: false
+      timeout: 6000
+      retries: 2
+    base-package: com.qianxin.web.rpc

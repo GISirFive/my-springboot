@@ -1,0 +1,12 @@
+spring:
+  dubbo:
+    application:
+      name: demo-consumer
+    registry:
+      address: 39.106.36.243               # zookeeper注册中心的地址
+      port: 2181                           # zookeeper注册中心的端口
+    consumer:
+      timeout: 6000
+      check: false                          # 服务启动时检查被调用服务是否可用
+      retries: 2                           # 服务调用重试次数
+    base-package: com.qianxin.dubbo.consumer  # dubbo服务调用者所在的包

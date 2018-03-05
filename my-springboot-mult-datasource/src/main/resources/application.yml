@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    master:
+      mapper: com.qianxin.multdatasource.mapper.master
+      driverClassName: com.mysql.jdbc.Driver
+      url: jdbc:mysql://39.106.36.243:3306/test_master?useUnicode=true&charaterEncoding=utf-8
+      username: root
+      password: 123456
+    second:
+      mapper: com.qianxin.multdatasource.mapper.second
+      driverClassName: com.mysql.jdbc.Driver
+      url: jdbc:mysql://39.106.36.243:3306/test_second?useUnicode=true&charaterEncoding=utf-8
+      username: root
+      password: 123456

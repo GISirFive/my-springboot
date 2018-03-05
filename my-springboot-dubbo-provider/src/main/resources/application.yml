@@ -1,0 +1,17 @@
+spring:
+  dubbo:
+    application:
+      name: demo-provider
+    registry:
+      address: 39.106.36.243                # zookeeper注册中心的地址
+      port: 2181                            # zookeeper注册中心的端口
+      check: false
+      timeout: 6000
+    protocol:
+      name: dubbo
+      #serialization: hessian2
+    provider:
+      retries: 0                           # 服务调用重试次数，服务发布者不给重试，让服务调用者自己重试
+    base-package: com.qianxin.dubbo.provider  # dubbo服务发布者所在的包
+
+

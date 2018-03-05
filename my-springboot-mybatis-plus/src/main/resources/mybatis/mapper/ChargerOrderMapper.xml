@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qianxin.mybatisplus.mapper.ChargerOrderMapper">
+
+	<!-- 通用查询结果列-->
+	<sql id="Base_Column_List">
+		id, station_id AS stationId, customer_id AS customerId, charger_id AS chargerId, price, electricity, `status`, remark, create_time AS createTime
+	</sql>
+
+</mapper>

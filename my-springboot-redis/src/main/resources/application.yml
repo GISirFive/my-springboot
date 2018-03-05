@@ -1,0 +1,15 @@
+spring:
+  redis:
+    database: 0
+    host: 39.106.36.243
+    port: 6379
+    #password:
+    timeout: 86400000
+    pool:
+      max-idle: 300
+      min-idle: 100
+      max-wait: 1000
+      max-active: 1024
+    #sentinel:
+      #master: mymaster
+      #nodes: 115.28.57.190:26379, 115.28.57.190:26381

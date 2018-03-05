@@ -1,0 +1,55 @@
+docker for mysql: https://hub.docker.com/_/mysql/
+                  https://www.jianshu.com/p/c24e3e5f5b58
+
+#mysql 环境搭建
+1.拉取镜像
+docker pull mysql
+2.启动容器  #123456为数据库root用户密码
+docker run --name some-mysql --restart always -p 3306:3306 -e MYSQL_ROOT_PASSWORD=123456 -d mysql
+
+#本地连接
+1. docker run -it --link some-mysql:mysql --rm mysql sh -c 'exec mysql -h"$MYSQL_PORT_3306_TCP_ADDR" -P"$MYSQL_PORT_3306_TCP_PORT" -uroot -p"$MYSQL_ENV_MYSQL_ROOT_PASSWORD"'
+注: 直接关闭终端会残留一个docker ps
+docker attach 容器ID  可以连接到这个ps
+
+#远程连接(Linux命令行)
+1.下载想mysql-client
+2.连接数据库: mysql -h39.106.36.243 -P3306 -uroot -p123456
+
+#远程连接(windows桌面工具)
+常规连接即可
+
+#初始化表结构
+1.创建SCHEMA: CREATE SCHEMA `test` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci
+2.查看SCHEMA: show databases;;
+3.创建表:
+create table test.bs_charger (
+	id int auto_increment comment '主键ID' primary key,
+	name varchar(200) null comment '枪头名称',
+	voltage int null comment '电压22330表示，223.3v,',
+	current int null comment '电流，100表示1a,',
+	electricity int null comment '电量，值：220，表示为：2.2KWH',
+	power int null comment '功率，值：33000，表示为：3.3KW',
+	status int(4) null comment '状态'
+) comment '枪头数据表';
+create table test.t_charger_order (
+	id bigint not null comment '订单编号' primary key,
+	station_id bigint null comment '站点ID',
+	customer_id bigint default '0' null comment '用户ID',
+	charger_id varchar(50) null comment '充电接口(枪)编号',
+	price int default '0' null comment '订单金额',
+	electricity int null comment '订单电量',
+	status int default '0' null comment '状态',
+	remark text null comment '备注',
+	create_time datetime null comment '订单创建时间'
+) comment '订单基础信息表';
+
+4.查看表列表:
+    查看已有表：describe tables;
+    查看表结构：describe table table_name;
+
+
+
+
+
+

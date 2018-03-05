@@ -1,0 +1,18 @@
+mybatis:
+  config-location: classpath:mybatis/mybatis.cfg.xml
+  type-aliases-package: com.qianxin.mybatisplus.entity
+  mapper-locations: classpath:mybatis/mapper/**/*.xml
+
+spring:
+  datasource:
+      type: com.alibaba.druid.pool.DruidDataSource
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://39.106.36.243:3306/test?useUnicode=true&charaterEncoding=utf-8
+      username: root
+      password: 123456
+      validation-query: SELECT 1 FROM DUAL;
+      dbcp2:
+        max-idle: 5
+        min-idle: 5
+        max-wait-millis: 1000
+        max-total: 10

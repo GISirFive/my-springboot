@@ -1,0 +1,8 @@
+spring:
+  data:
+    cassandra:
+      contact-points: 39.104.51.211 # cassandra 地址
+      keyspace-name: chargerlink_access
+      port: 9042
+      username: cassandra
+      password: cassandra

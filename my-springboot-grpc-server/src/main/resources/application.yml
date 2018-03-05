@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: my-springboot-grpc-server
+server:
+  port: 0
+grpc:
+  server:
+    port: 9898

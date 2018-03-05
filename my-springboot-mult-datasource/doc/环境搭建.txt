@@ -1,0 +1,77 @@
+docker for mysql: https://hub.docker.com/_/mysql/
+                  https://www.jianshu.com/p/c24e3e5f5b58
+
+#mysql 环境搭建
+1.拉取镜像
+docker pull mysql
+2.启动容器  #123456为数据库root用户密码
+docker run --name some-mysql --restart always -p 3306:3306 -e MYSQL_ROOT_PASSWORD=123456 -d mysql
+
+#本地连接
+1. docker run -it --link some-mysql:mysql --rm mysql sh -c 'exec mysql -h"$MYSQL_PORT_3306_TCP_ADDR" -P"$MYSQL_PORT_3306_TCP_PORT" -uroot -p"$MYSQL_ENV_MYSQL_ROOT_PASSWORD"'
+注: 直接关闭终端会残留一个docker ps
+docker attach 容器ID  可以连接到这个ps
+
+#远程连接(Linux命令行)
+1.下载想mysql-client
+2.连接数据库: mysql -h39.106.36.243 -P3306 -uroot -p123456
+
+#远程连接(windows桌面工具)
+常规连接即可
+
+#初始化表结构
+#创建master数据库
+1.创建SCHEMA master: CREATE SCHEMA `test_master` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci
+2.查看SCHEMA: show databases;;
+3.创建表:
+create table test_master.t_card(
+	id bigint auto_increment comment '自动增长列' primary key,
+	name varchar(255) not null comment '卡片名称',
+	type tinyint null comment '卡片类型',
+	price decimal(20,2) null comment '卡片面值',
+	status varchar(10) null comment '卡状态',
+	phone varchar(50) null comment '手机号',
+	create_time datetime null comment '创建时间'
+) comment '卡片';
+create table test_master.t_site(
+	id bigint auto_increment comment '站点编号'	primary key,
+	name varchar(128) null comment '站点名称',
+	longitude double null comment '经度',
+	latitude double null comment '纬度',
+	address varchar(512) null comment '站点地址',
+	phone varchar(256) null comment '服务号码',
+	status int(1) unsigned default '1' null comment '站点状态',
+	remark text null,
+	create_time timestamp null comment '创建时间'
+) comment '站点';
+
+#创建second数据库
+1.创建SCHEMA second: CREATE SCHEMA `test_second` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci
+2.查看SCHEMA: show databases;;
+3.创建表:
+create table test_second.t_product (
+	id bigint auto_increment comment 'id'primary key,
+	name varchar(200) not null comment '产品名称',
+  pass_number varchar(32) null comment '注册码',
+	remake varchar(200) null comment '备注',
+	creator varchar(32) not null comment '创建人',
+	create_time datetime not null comment '创建时间'
+) comment '产品系列';
+
+create table test_second.t_device (
+	id bigint auto_increment comment 'id' primary key,
+  name varchar(200) not null comment '设备名称',
+  product_id varchar(32) not null comment '产品系列id',
+	serial_number varchar(32) not null comment '设备序列号',
+	firmware_version varchar(32) null comment '固件版本',
+	remark varchar(200) null comment '备注',
+	creator varchar(32) not null comment '创建人',
+	create_time datetime not null comment '创建时间'
+) comment '设备信息';
+
+
+
+
+
+
+

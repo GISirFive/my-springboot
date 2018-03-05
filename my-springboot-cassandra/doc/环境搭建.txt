@@ -1,0 +1,52 @@
+docker for cassandra: https://hub.docker.com/_/cassandra/
+cassandra常用命令: http://blog.csdn.net/network_boy/article/details/44731413
+
+#cassandra 环境搭建
+1.拉取镜像
+docker pull cassandra
+2.启动容器
+docker run --name some-cassandra --restart always -p 9042:9042 -d cassandra
+
+#本地连接
+1. docker run -it --link some-cassandra:cassandra --rm cassandra sh -c 'exec cqlsh "$CASSANDRA_PORT_9042_TCP_ADDR"';
+注: 直接关闭终端会残留一个docker ps
+docker attach 容器ID  可以连接到这个ps
+
+#远程连接
+1.下载cassandra包
+2.安装python运行环境
+3.进入bin目录下
+4.修改编码: chcp 65001
+5.连接数据库: .\cqlsh.bat 39.106.36.243 9042 -u cassandra -p cassandra
+
+#初始化表结构
+1.创建键值空间: CREATE KEYSPACE chargerlink_access WITH REPLICATION = {'class':'SimpleStrategy','replication_factor':1};
+2.查看键值空间: describe keyspaces;
+3.创建表:
+CREATE TABLE chargerlink_access.t_data_info (
+    device_type int,
+    device_id text,
+    data_time timeuuid,
+    data_detail blob,
+    data_type int,
+    sub_device text,
+    PRIMARY KEY ((device_type, device_id), data_time)
+);
+CREATE TABLE chargerlink_access.t_event_info (
+    device_type int,
+    device_id text,
+    event_time timeuuid,
+    event_detail blob,
+    event_type int,
+    sub_device text,
+    PRIMARY KEY ((device_type, device_id), event_time)
+);
+4.查看表列表:
+    查看已有表：describe tables;
+    查看表结构：describe table table_name;
+
+
+
+
+
+
